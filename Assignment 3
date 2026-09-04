@@ -1,1 +1,25 @@
+def is_right_angled(side1, side2, side3):
+    """
+    Checks if three given side lengths form a right-angled triangle 
+    using the Pythagorean theorem (a^2 + b^2 = c^2).
+    """
+    sides = [side1, side2, side3]
+    sides.sort()
+    
+    a, b, c = sides[0], sides[1], sides[2]
+    
+    return round(a**2 + b**2, 5) == round(c**2, 5)
 
+try:
+    s1 = float(input("Enter length of side 1: "))
+    s2 = float(input("Enter length of side 2: "))
+    s3 = float(input("Enter length of side 3: "))
+    
+    if s1 <= 0 or s2 <= 0 or s3 <= 0:
+        print("Side lengths must be positive values.")
+    elif is_right_angled(s1, s2, s3):
+        print("The given sides form a right-angled triangle.")
+    else:
+        print("The given sides do not form a right-angled triangle.")
+except ValueError:
+    print("Please enter valid numerical values.")
