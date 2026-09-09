@@ -1,1 +1,21 @@
+import numpy as np
 
+rows = 3
+cols = 3
+
+print(f"Enter elements for a {rows}x{cols} Matrix 1:")
+user_input1 = input("Enter 9 numbers separated by spaces: ")
+cleaned_input1 = user_input1.replace('[', '').replace(']', '').replace(',', '')
+elements1 = [int(x) for x in cleaned_input1.split()]
+matrix1 = np.array(elements1).reshape(rows, cols)
+
+print(f"\nEnter elements for a {rows}x{cols} Matrix 2:")
+user_input2 = input("Enter 9 numbers separated by spaces: ")
+cleaned_input2 = user_input2.replace('[', '').replace(']', '').replace(',', '')
+elements2 = [int(x) for x in cleaned_input2.split()]
+matrix2 = np.array(elements2).reshape(rows, cols)
+
+result = matrix1 + matrix2
+
+print("\nResultant Matrix after Addition:")
+print(result)
