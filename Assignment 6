@@ -1,1 +1,43 @@
 
+import os
+import numpy as np
+import pandas as pd
+
+input_file = "array.csv"
+
+if not os.path.exists(input_file):
+    sample_data = {
+        "Name": ["Amit", "Neha", "Raj", "Amit"],
+        "Age": [18.0, 19.0, np.nan, 18.0],
+        "Marks": [85, 90, 78, 85],
+        "City": ["Pune", "Mumbai", "Pune", "Pune"],
+    }
+    pd.DataFrame(sample_data).to_csv(input_file, index=False)
+
+df = pd.read_csv(input_file)
+print("=== First Few Records ===")
+print(df.head())
+
+print("\n=== Dataset Info (Original) ===")
+df.info()
+
+print("\n=== Missing Values ===")
+print(df.isnull().sum())
+
+print("\n=== Duplicate Records ===")
+print("Duplicates found:", df.duplicated().sum())
+
+for col in ["Age", "Marks"]:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+if "Age" in df.columns and df["Age"].isnull().sum() > 0:
+    df["Age"] = df["Age"].fillna(df["Age"].mean())
+
+df_cleaned = df.drop_duplicates().reset_index(drop=True)
+
+print("\n=== Cleaned Dataset ===")
+print(df_cleaned)
+
+df_cleaned.to_csv("preprocessed_array.csv", index=False)
+print("\nSaved to preprocessed_array.csv successfully!")
